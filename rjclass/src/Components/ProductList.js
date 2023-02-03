@@ -32,13 +32,15 @@ class ProductList extends React.Component {
                 <tbody>
                     {
                         this.props.productList.map((product) => {
-                            return <tr>
+                            return <tr key={product.id}>
                                 <td>{product.id}</td>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>{product.unit}</td>
-                                <td><button type="button" className="btn btn-primary" onClick={()=>this.editProduct(product.id)}>Sửa</button></td>
-                                <td><button type="button" className="btn btn-danger" onClick={()=>this.deleteProduct(product.id)}>Xoá</button></td>
+                                <td>
+                                    <button type="button" className="btn btn-primary" onClick={()=>this.editProduct(product.id)}>Sửa</button>
+                                    <button type="button" className="btn btn-danger" onClick={()=>this.deleteProduct(product.id)}>Xoá</button>
+                                </td>
                             </tr>
                         })
                     }

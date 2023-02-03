@@ -1,56 +1,74 @@
 import React from "react";
-import NewProductF from "./NewProductF";
+import NewProduct from "./NewProduct";
 import ProductList from "./ProductList";
-
+import productAPI from "../API/productAPI"
 
 class Container extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             product : {},
-            productList : [
-                {
-                    id : 57,
-                    name : "Iphone 14",
-                    price : 20000000,
-                    unit : "Cái"
-                },
-                {
-                    id : 76,
-                    name : "SamSung Galaxy",
-                    price : 15000000,
-                    unit : "Chiếc"
-                },
-                {
-                    id : 99,
-                    name : "SamSung Galaxy",
-                    price : 15000000,
-                    unit : "Chiếc"
-                }
-            ]
+            productList : []
         }
     }
     myFunction = (message) =>{
         alert(message);
     }
-    editProduct = (id) =>{
 
+    fetchProduct = async () =>{
+        const response = await productAPI.getAll();
+        this.setState({
+            productList : [...response.data]
+        });
+        console.log(response.data);
     }
 
-    deleteProduct = (id) =>{
-        let arr = [...this.state.productList];
-        let index = arr.findIndex(function(i) {
+    componentDidMount() {
+        this.fetchProduct();
+    }
+    componentDidUpdate(){
+        
+    }
+
+    editProduct = (id) =>{
+        let index = this.state.productList.findIndex(function(i) {
             return i.id === id
         });
-        arr.splice(index,1);
+        const item = this.state.productList[index];
         this.setState({
-            productList : arr
+            product : {
+                id : item.id,
+                name : item.name,
+                price : item.price,
+                unit : item.unit,
+            }
         })
     }
+
+    deleteProduct = async (id) =>{
+        await productAPI.delete(id).then(
+            async () => this.fetchProduct()
+        )
+    }
+
+    saveProduct = async (product) => {
+        if (product.id) {
+            //update
+            await productAPI.update(product).then(
+                async () => this.fetchProduct()
+            )
+        } else {
+            //create
+            await productAPI.create(product).then(
+                async () => this.fetchProduct()
+            );
+        }
+    }
+
     render(){
         return <div className="row">
             <ProductList productList = {this.state.productList} editProduct= {this.editProduct} deleteProduct = {this.deleteProduct}/>
-            <NewProductF productInfo = {this.state.product} saveProduct= {this.myFunction}/>
+            <NewProduct productInfo = {this.state.product} saveProduct= {this.saveProduct}/>
         </div>
     }
 }

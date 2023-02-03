@@ -1,11 +1,7 @@
-import React from 'react';
 
-const Topic = () => {
+function Topic() {
     return (
-        <div>
-            <h2>Topic page</h2>
-        </div>
-    );
-};
-
+        <h2>Topic page</h2>
+    )
+}
 export default Topic;
