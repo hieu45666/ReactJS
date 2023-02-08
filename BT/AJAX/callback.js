@@ -1,5 +1,5 @@
 function greet(name, callback) {
-    console.log('Hi' + ' ' + name);
+    console.log('Hi ${name}');
     callback();
 }
 
@@ -9,4 +9,4 @@ function callMe() {
 }
 
 // passing function as an argument
-greet('Peter', callMe);
+greet('Hiếu', callMe);

@@ -8,3 +8,4 @@ function sayName(name) {
 }
 
 setTimeout(greet,2000,'Hiếu',sayName);
+setTimeout(greet("Hiếu",sayName()),2000);
