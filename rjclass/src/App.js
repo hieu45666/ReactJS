@@ -4,11 +4,18 @@ import Footer from './Components/Footer';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import routers from './commons/routers';
+import LoginForm from './Components/LoginForm';
+import  {useState} from 'react';
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
+  const [logged, changeLogged] = useState(false);
+  function changeLoggedStatus() {
+      changeLogged(!this.logged);
+  }
+  if (logged) {
+    return (
+      <>
+      <BrowserRouter>     
         <Header></Header>
         <Routes>
             {
@@ -19,8 +26,10 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Footer></Footer>
-    </>
-  );
+      </>)}
+      else {
+        return <LoginForm changeLoggedStatus = {changeLoggedStatus}></LoginForm>
+      }
 }
 
 export default App;
