@@ -53,13 +53,13 @@ class ProductList extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    productList : state.productList;
-}
+const mapStateToProps = (state) => ({
+    productList : state.productList
+});
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addProduct(id){
+        deleteProduct(id){
             dispatch(productAction.deleteProduct(id));
         }
     }

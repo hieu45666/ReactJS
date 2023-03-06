@@ -7,5 +7,5 @@ export const createProduct = (payload) => ({
 
 export const deleteProduct = (id) => ({
     type: DELETE_PRODUCT,
-    payload: id
+    payload: {id}
 });

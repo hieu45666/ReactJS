@@ -10,7 +10,10 @@ class NewProduct extends React.Component {
         }
     }
     saveProduct = () => {
-        this.props.saveProduct(this.state);
+        this.props.addProduct(this.state);
+        this.setState({
+            name : "",
+        });
     }
     changeValue = (event) => {
         this.setState({
