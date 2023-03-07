@@ -1,4 +1,13 @@
 import React from 'react';
+import { connect } from "react-redux";
+import * as productAction from "./productAction";
+
+const changeValue = event => {
+    this.setState({
+        [event.target.name] : event.target.value,
+        changeByInput: true,
+    });
+}
 
 const AddMedicine = () => {
     return (
@@ -11,7 +20,7 @@ const AddMedicine = () => {
                             <label id="lblTenSanPham">Tên sản phẩm:</label>
                         </div>
                         <div className="col-md-8">
-                            <input type="text" className="form-control" name= "name"  onChange={() => {}} id="productName"
+                            <input type="text" className="form-control" name= "name"  onChange={this.changeValue} id="productName"
                                 placeholder="Nhập tên sản phẩm ..."/>
                         </div>
                     </div>
@@ -20,7 +29,7 @@ const AddMedicine = () => {
                             <label id="lblMaSanPham">Mã sản phẩm: </label>
                         </div>
                         <div className="col-md-8">
-                            <input type="text" className="form-control" name= "code"  onChange={() => {}} id="productCode"
+                            <input type="text" className="form-control" name= "code"  onChange={this.changeValue} id="productCode"
                                 placeholder="Nhập mã sản phẩm ..."/>
                         </div>
                     </div>
@@ -29,7 +38,7 @@ const AddMedicine = () => {
                             <label id="lblGiaSanPham">Giá sản phẩm:</label>
                         </div>
                         <div className="col-md-8">
-                            <input type="text" className="form-control" name= "price"  onChange={() => {}} id="productPrice"
+                            <input type="text" className="form-control" name= "price"  onChange={this.changeValue} id="productPrice"
                                 placeholder="Nhập giá sản phẩm ..."/>
                         </div>
                     </div>
@@ -38,7 +47,7 @@ const AddMedicine = () => {
                             <label id="lblMoTaSanPham">Mô tả sản phẩm:</label>
                         </div>
                         <div className="col-md-8">
-                            <input type="text" className="form-control" name= "description"  onChange={() => {}} id="productDescription"
+                            <input type="text" className="form-control" name= "description"  onChange={this.changeValue} id="productDescription"
                                 placeholder="Nhập mô tả sản phẩm ..."/>
                         </div>
                     </div>
@@ -47,7 +56,7 @@ const AddMedicine = () => {
                             <label id="lblAnh">Hình ảnh sản phẩm:</label>
                         </div>
                         <div className="col-md-8">
-                            <input type="text" className="form-control" name= "name"  onChange={() => {}} id="productImage"
+                            <input type="text" className="form-control" name= "name"  onChange={this.changeValue} id="productImage"
                                 placeholder="Link ảnh sản phẩm ..."/>
                         </div>
                     </div>
@@ -62,4 +71,12 @@ const AddMedicine = () => {
     );
 };
 
-export default AddMedicine;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addProduct(product){
+            dispatch(productAction.createProduct(product));
+        }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(AddMedicine);
